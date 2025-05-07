@@ -42,13 +42,13 @@ jobs:
           dotnet-version: '8.0'
 
       - name: Restore dependencies
-        run: dotnet restore trying-github-pages/sumah/sumah.csproj
+        run: dotnet restore sumah/sumah.csproj
 
       - name: Build the project
-        run: dotnet build trying-github-pages/sumah/sumah.csproj --configuration Release --no-restore
+        run: dotnet build sumah/sumah.csproj --configuration Release --no-restore
 
       - name: Publish the app
-        run: dotnet publish trying-github-pages/sumah/sumah.csproj --configuration Release --output ${{ env.PUBLISH_DIR }}
+        run: dotnet publish sumah/sumah.csproj --configuration Release --output ${{ env.PUBLISH_DIR }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
