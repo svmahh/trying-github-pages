@@ -2,8 +2,7 @@
 name: Deploy Blazor App to GitHub Pages
 
 env:
-  PUBLISH_DIR: trying-github-pages/sumah/wwwroot
-
+  PUBLISH_DIR: trying-github-pages/sumah
 on:
   # Runs on pushes targeting the default branch for the app's folder path
   push:
