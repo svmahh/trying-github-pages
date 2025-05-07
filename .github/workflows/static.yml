@@ -1,0 +1,63 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy Blazor App to GitHub Pages
+
+env:
+  PUBLISH_DIR: trying-github-pages/sumah/wwwroot
+
+on:
+  # Runs on pushes targeting the default branch for the app's folder path
+  push:
+    paths:
+      - trying-github-pages/**
+    branches:
+      - main
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get latest .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0'
+
+      - name: Restore dependencies
+        run: dotnet restore trying-github-pages/sumah/sumah.csproj
+
+      - name: Build the project
+        run: dotnet build trying-github-pages/sumah/sumah.csproj --configuration Release --no-restore
+
+      - name: Publish the app
+        run: dotnet publish trying-github-pages/sumah/sumah.csproj --configuration Release --output ${{ env.PUBLISH_DIR }}
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ env.PUBLISH_DIR }}
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
