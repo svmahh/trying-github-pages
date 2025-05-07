@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <StaticWebAssetBasePath>trying-github-pages</StaticWebAssetBasePath>
+  <StaticWebAssetBasePath>trying-github-pages</StaticWebAssetBasePath>
   </PropertyGroup>
 
 </Project>
